@@ -65,5 +65,3 @@ if __name__ == "__main__":
         print(karaoke.__str__())
     else:
         sys.exit("Usage: python3 karaoke.py file.smil")
-
-        
