@@ -19,7 +19,7 @@ class KaraokeLocal():
         try:
             parser.parse(open(fichero))
             self.lista = cHandler.get_tags()
-        except:
+        except IOError:
             sys.exit("Error del fichero")
 
     def __str__(self):
