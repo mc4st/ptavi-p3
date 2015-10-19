@@ -3,10 +3,12 @@
 
 import sys
 import urllib.request
+import json
 
 from xml.sax import make_parser
 from xml.sax.handler import ContentHandler
 from smallsmilhandler import SmallSMILHandler
+
 
 class KaraokeLocal():
     def __init__(self, fichero):
@@ -42,6 +44,14 @@ class KaraokeLocal():
                 if dic[clave].split(':')[0] == "http":
                     urllib.request.urlretrieve(dic[clave], dic[clave].split('/')[-1])
                     dic[clave] = dic[clave].split('/')[-1]
+
+    def to_json(self, fichero):
+        new_json = json.dumps(self.lista)
+        nombre_fichero = fichero.split('.')[0] + '.json'
+        with open(nombre_fichero, 'w') as fichero_json:
+            json.dump(new_json, fichero_json)
+
+
 if __name__ == "__main__":
 
     if len(sys.argv) == 2:
@@ -51,5 +61,8 @@ if __name__ == "__main__":
         karaoke.do_local()
         print("")
         print(karaoke.__str__())
+        print("")
+        karaoke.to_json(fichero)
+
     else:
         sys.exit("Usage: python3 karaoke.py file.smil")
