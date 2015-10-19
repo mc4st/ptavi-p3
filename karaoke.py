@@ -46,6 +46,7 @@ class KaraokeLocal():
                     dic[clave] = dic[clave].split('/')[-1]
 
     def to_json(self, fichero):
+        "Pasar fichero SMIL a JSON"
         new_json = json.dumps(self.lista)
         nombre_fichero = fichero.split('.')[0] + '.json'
         with open(nombre_fichero, 'w') as fichero_json:
@@ -58,11 +59,9 @@ if __name__ == "__main__":
         fichero = sys.argv[1]
         karaoke = KaraokeLocal(fichero)
         print(karaoke.__str__())
-        karaoke.do_local()
-        print("")
-        print(karaoke.__str__())
-        print("")
         karaoke.to_json(fichero)
-
+        karaoke.do_local()
+        karaoke.to_json("local.json")
+        print(karaoke.__str__())
     else:
         sys.exit("Usage: python3 karaoke.py file.smil")
